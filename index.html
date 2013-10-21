@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Laravel Facade Dump Example</title>
+    <style>
+        @import url(https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css);
+        @import url(https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css);
+
+        body {
+            padding-top: 60px;
+        }
+
+        pre {
+            font-family: "Ubuntu Mono", monospace;
+            padding: 5px;
+            font-size: 80%;
+            line-height: 1.5em;
+            margin: 0.2em 0;
+            border: 0;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <div id="content" class="row">
+    </div>
+</div>
+<script>
+
+    (function () {
+
+        $.getJSON("laravel_facade_mapping.json", function (data) {
+
+            var row = $("<div>", {"class": "row"});
+            var i = 0;
+
+            $.each(data, function (key, facadedetail) {
+                i++;
+
+                var div = $("<div>", {"class": "col-md-6"});
+                div.append($("<h1>", {"class": "alias  text-center", text: key}));
+                var detail = $("<pre>", {"class": "prettyprint lang-php"});
+                var links = [];
+
+                if (key.substring(0, 1) == "_") {
+                    $.each(facadedetail, function (functionname, info) {
+                        var doclocation = "http://laravel.com/api/function-" + functionname + ".html";
+
+                        var display = functionname + "(" + info.params + ");\n";
+                        var doclink = $("<a>", {"class": "detail", "href": doclocation, "title": info.desc, text: display, "data-name": functionname});
+
+                        links.push(doclink);
+                    });
+                } else {
+                    $.each(this.methods, function (classname, functions) {
+                        var doclocation = "http://laravel.com/api/class-" + classname.replace(/\\/g, ".") + ".html";
+                        $.each(functions, function (name, info) {
+                            var display = key + "::" + name + "(" + info.params + ");\n";
+                            var doclink = $("<a>", {"class": "detail", "href": doclocation + "#_" + name, "title": info.desc, text: display, "data-name": name});
+
+                            links.push(doclink);
+                        });
+                    });
+                }
+
+                links.sort(function (a, b) {
+                    return $(a).attr("data-name").toUpperCase().localeCompare($(b).attr("data-name").toUpperCase());
+                });
+
+                $.each(links, function (i, obj) {
+                    detail.append(obj);
+                })
+
+                div.append(detail);
+                row.append(div);
+
+                if ((i % 2) == 0) {
+                    $('#content').append(row);
+                    row = $("<div>", {"class": "row"});
+                }
+            });
+
+            $('#content').append(row);
+            prettyPrint();
+
+        });
+    })();
+</script>
+</body>
+</html>
