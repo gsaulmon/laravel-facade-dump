@@ -61,10 +61,10 @@
                     });
                 } else {
                     $.each(this.methods, function (classname, functions) {
-                        var doclocation = "http://laravel.com/api/class-" + classname.replace(/\\/g, ".") + ".html";
+                        var doclocation = "http://laravel.com/api/4.1/" + classname.replace(/\\/g, "/") + ".html";
                         $.each(functions, function (name, info) {
                             var display = key + "::" + name + "(" + info.params + ");\n";
-                            var doclink = $("<a>", {"class": "detail", "href": doclocation + "#_" + name, "title": info.desc, text: display, "data-name": name});
+                            var doclink = $("<a>", {"class": "detail", "href": doclocation + "#method_" + name, "title": info.desc, text: display, "data-name": name});
 
                             links.push(doclink);
                         });
