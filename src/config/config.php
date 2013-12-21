@@ -11,14 +11,10 @@ return array(
     |
     */
 
-    'filename' => 'laravel_facade_mapping.json',
-
-
-    'helper_files' => array(
-        base_path().'/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
-    ),
-
-
+        'filename' => 'laravel_facade_mapping.json',
+        'helper_files' => array(
+                base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+        ),
     /*
     |--------------------------------------------------------------------------
     | Extra classes
@@ -28,24 +24,25 @@ return array(
     |
     */
 
-    'extra' => array(
-        'Eloquent'  => array('Illuminate\Database\Eloquent\Builder', 'Illuminate\Database\Query\Builder'),
-        'Session' => array('Illuminate\Session\Store'),
-    ),
+        'extra' => array(
+                'Artisan' => array('Illuminate\Foundation\Artisan'),
+                'Eloquent' => array('Illuminate\Database\Eloquent\Builder', 'Illuminate\Database\Query\Builder'),
+                'Session' => array('Illuminate\Session\Store'),
+                'SSH' => array('Illuminate\Remote\Connection'),
+        ),
 
-    'magic' => array(
-        'Log' => array(
-            'debug'     => 'Monolog\Logger::addDebug',
-            'info'      => 'Monolog\Logger::addInfo',
-            'notice'    => 'Monolog\Logger::addNotice',
-            'warning'   => 'Monolog\Logger::addWarning',
-            'error'     => 'Monolog\Logger::addError',
-            'critical'  => 'Monolog\Logger::addCritical',
-            'alert'     => 'Monolog\Logger::addAlert',
-            'emergency' => 'Monolog\Logger::addEmergency',
-        )
-    ),
-
+        'magic' => array(
+                'Log' => array(
+                        'debug' => 'Monolog\Logger::addDebug',
+                        'info' => 'Monolog\Logger::addInfo',
+                        'notice' => 'Monolog\Logger::addNotice',
+                        'warning' => 'Monolog\Logger::addWarning',
+                        'error' => 'Monolog\Logger::addError',
+                        'critical' => 'Monolog\Logger::addCritical',
+                        'alert' => 'Monolog\Logger::addAlert',
+                        'emergency' => 'Monolog\Logger::addEmergency',
+                )
+        ),
     /*
     |--------------------------------------------------------------------------
     | Overrides
@@ -55,9 +52,9 @@ return array(
     |
     */
 
-    'overrides' => array(
-        //'View.methods.Illuminate\View\Environment.__construct.desc' => 'Example',
-        //'View.methods.Illuminate\View\Environment.addExtension' => array('desc' => 'Example', 'name' => 'Example', 'params' => '$example = true')
-    )
+        'overrides' => array(
+            //'View.methods.Illuminate\View\Environment.__construct.desc' => 'Example',
+            //'View.methods.Illuminate\View\Environment.addExtension' => array('desc' => 'Example', 'name' => 'Example', 'params' => '$example = true')
+        )
 
 );
